@@ -32,7 +32,6 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/payment',async(req,res)=>{
-   res.send('hello payment')
 try {
     const request = {
         "order_amount": 1,
