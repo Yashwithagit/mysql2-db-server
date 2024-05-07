@@ -45,10 +45,11 @@ try {
             "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}"
         }
     };
-  
+    res.json({env:Cashfree.Environment,client:Cashfree.XClientId,secret:Cashfree.XClientSecret})
     Cashfree.PGCreateOrder("2022-09-01", request).then((response) => {
         console.log('Order Created successfully:',response.data)
         res.send(response.data)
+      
         res.send('hello payment success')
     }).catch((error) => {
         res.send('hello payment error')
