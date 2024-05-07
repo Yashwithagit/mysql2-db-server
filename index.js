@@ -45,7 +45,7 @@ try {
             "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}"
         }
     };
-    res.send('hello payment dffdfd')
+  
     Cashfree.PGCreateOrder("2022-09-01", request).then((response) => {
         console.log('Order Created successfully:',response.data)
         res.send(response.data)
