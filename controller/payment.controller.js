@@ -24,7 +24,6 @@ const paymentController={
                 }
             };
             Cashfree.PGCreateOrder("2022-09-01", request).then((response) => {
-                console.log('Order Created successfully:',response.data)
                 res.json({
                     status:'success',
                     data:response.data

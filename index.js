@@ -11,8 +11,11 @@ app.use(express.json())
 
 const productRouter=require('./routes/product.router')
 const paymentRouter=require('./routes/payment.router')
+const authRouter=require('./routes/auth.route')
+const verifyToken=require('./middleWare/verifyToken')
 app.use('/api/',paymentRouter)
 app.use('/api/products',productRouter)
+app.use('/api/auth',authRouter)
 
 
 
