@@ -6,7 +6,7 @@ function verifyToken(req,res,next){
         return res.json({ message: 'Invalid request' });
       }
     const token=req.header("Authorization")
-    if(!token){
+    if(!token){UnauthorizedError
         return res.json({
             status: 'error',
             message: 'Access Denied'
@@ -18,7 +18,7 @@ function verifyToken(req,res,next){
      req.user=decoded
     try {
       
-        next()
+        return next()
         
     } catch (error) {
         res.json({

@@ -3,7 +3,7 @@ const pool = require('../connectDb');
 const bcrypt = require('bcrypt');
 
 const authController = {
-    registerUser: async (req, res) => {
+    registerUser: async (req, res,next) => {
         try {
             const { user_name, email, password } = req.body
             const hashed = await bcrypt.hash(password, 10)
@@ -22,13 +22,10 @@ const authController = {
                 });
             }
         } catch (error) {
-            res.json({
-                status: 'error',
-                message: 'Failed to insert the user data'
-            })
+           return next(error)
         }
     },
-    loginUser: async (req, res) => {
+    loginUser: async (req, res,next) => {
         try {
             const { email, password } = req.body;
 
@@ -59,13 +56,10 @@ const authController = {
                 data: token
             });
         } catch (error) {
-            return res.json({
-                status: 'error',
-                message: 'Failed to login user'
-            });
+           return next(error)
         }
     },
-    userInfo:async(req,res)=>{
+    userInfo:async(req,res,next)=>{
         try{
             const userId=req.user.userId
             const [rows,fields]=await pool.query('SELECT * FROM users where user_id = ?',[userId])
@@ -81,10 +75,7 @@ const authController = {
             });
 
         }catch(error){
-            return res.json({
-                status: 'error',
-                message: 'Invalid Token'
-            });
+          return next(error)
         }
     }
 

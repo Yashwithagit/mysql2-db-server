@@ -1,9 +1,9 @@
 const pool=require('../connectDb')
 
-const productController={
+const orderController={
     getAll:async(req,res,next)=>{
         try {
-            const [rows, fields]=await pool.query('select * from product')
+            const [rows, fields]=await pool.query('select * from user_order')
             res.json({
                 status:'success',
                 data:rows
@@ -16,7 +16,7 @@ const productController={
     getById:async(req,res,next)=>{
         try {
             const {id}=req.params
-            const [rows, fields]=await pool.query(`select * from product where product_id=${id}`)
+            const [rows, fields]=await pool.query(`select * from user_order where product_id=${id}`)
             res.json({
                 status:'success',
                 data:rows
@@ -26,9 +26,9 @@ const productController={
             return next(error)
         }
     },
-    addToCart:async(req,res,next)=>{
+    updateOrder:async(req,res,next)=>{
         try {
-            const {id,cart}=req.body
+            const {product_id,user_id,product_count,product_price,status,total_price}=req.body
             const [rows, fields]=await pool.query(`update product set cart=${cart} where product_id=${id}`)
             res.json({
                 status:'success',
@@ -42,4 +42,4 @@ const productController={
 
 }
 
-module.exports=productController
+module.exports=orderController

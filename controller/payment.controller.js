@@ -8,7 +8,7 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 
 const paymentController={
-    payment:async(req,res)=>{
+    payment:async(req,res,next)=>{
         try {
             const {amount,currency,id}=req.body
             const request = {
@@ -38,13 +38,10 @@ const paymentController={
             });
             
         } catch (error) {
-            res.json({
-                status:'error',
-                message:'Something went wrong'
-            })
+          return next(error)
         }
     },
-    verify:async(req,res)=>{
+    verify:async(req,res,next)=>{
         try {
             let {orderId}=req.body
             Cashfree.PGOrderFetchPayments("2022-09-01",orderId).then((response)=>{
@@ -61,10 +58,7 @@ const paymentController={
             })
             
         } catch (error) {
-            res.json({
-                status:'error',
-                message:'Something went wrong'
-            })
+           return next(error)
         }
     }
    
