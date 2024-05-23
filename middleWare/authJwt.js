@@ -8,6 +8,7 @@ function authJwt(){
         path:[
             {url:/\/api\/products(.*)/,methods:'GET'},
             {url:'/api/auth/login',methods:'POST'},
+            {url:'/api/payment',methods:'POST'},
             {url:'/api/auth/register',methods:'POST'}
         ]
     })
