@@ -12,6 +12,7 @@ app.use(express.json())
 const productRouter=require('./routes/product.router')
 const paymentRouter=require('./routes/payment.router')
 const authRouter=require('./routes/auth.route')
+const orderRouter=require('./routes/order.route')
 const authJwt=require('./middleWare/authJwt')
 const errorHandler=require('./middleWare/errorHandler')
 
@@ -20,6 +21,7 @@ app.use(authJwt())
 app.use('/api/',paymentRouter)
 app.use('/api/products',productRouter)
 app.use('/api/auth',authRouter)
+app.use('/api/order',orderRouter)
 app.use(errorHandler)
 
 
