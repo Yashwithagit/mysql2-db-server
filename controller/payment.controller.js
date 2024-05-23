@@ -1,6 +1,6 @@
 
 const {Cashfree}=require('cashfree-pg');
-
+const pool = require('../connectDb');
 
 Cashfree.XClientId = process.env.CLIENT_ID;
 Cashfree.XClientSecret = process.env.CLIENT_SECRET;
@@ -9,6 +9,9 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 const paymentController={
     payment:async(req,res,next)=>{
+        const userId=req.user.userId
+        const [rows,fields]=await pool.query('SELECT * FROM users where user_id = ?',[userId])
+        console.log(rows[0].user_name,'saddsadsa')
         try {
             const {amount,currency,id}=req.body
             const request = {
@@ -16,8 +19,9 @@ const paymentController={
                 "order_currency": currency,
                 "order_id": id,
                 "customer_details": {
-                    "customer_id": "John",
-                    "customer_phone": "9677777789"
+                    "customer_id": rows[0].user_name,
+                    "customer_phone": "9677777789",
+                    'customer_email':rows[0].email,
                 },
                 "order_meta": {
                     "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}"

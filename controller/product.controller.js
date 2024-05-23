@@ -26,19 +26,7 @@ const productController={
             return next(error)
         }
     },
-    addToCart:async(req,res,next)=>{
-        try {
-            const {id,cart}=req.body
-            const [rows, fields]=await pool.query(`update product set cart=${cart} where product_id=${id}`)
-            res.json({
-                status:'success',
-                message:`${cart===1?'Product Added to Cart Successfully':'Product Removed from the Cart Successfully'}`
-            })
-
-        }catch(error){
-            return next(error)
-        }
-    }
+   
 
 }
 
